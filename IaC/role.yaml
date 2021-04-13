@@ -33,3 +33,10 @@ Resources:
               - arn:aws:s3:::udacity-demo-1/*
       Roles:
         - !Ref S3ReadOnlyRole              
+
+  ProfileInstance:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+      - !Ref S3ReadOnlyRole
