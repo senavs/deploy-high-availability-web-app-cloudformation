@@ -169,3 +169,11 @@ Resources:
           Values: [/]
       ListenerArn: !Ref Listener
       Priority: 1
+
+Outputs:
+
+  LoadBalancer:
+    Description: A reference to the created LoadBalancer
+    Value: !Ref LoadBalancer
+    Export:
+      Name: OutputLoadBalancer
