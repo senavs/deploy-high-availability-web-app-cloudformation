@@ -38,6 +38,7 @@ Resources:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: !Ref ParamVPCCIRD
+      EnableDnsHostnames: true
 
   AttachInternetGateway:
     Type: AWS::EC2::VPCGatewayAttachment
@@ -52,7 +53,7 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: !Ref ParamPublicSubnet1CIRD
       AvailabilityZone: !Select [ 0, !GetAZs '' ]
-      MapPublicIpOnLaunch: true
+      MapPublicIpOnLaunch: false
 
   PublicSubnet2:
     Type: AWS::EC2::Subnet
@@ -60,7 +61,7 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: !Ref ParamPublicSubnet2CIRD
       AvailabilityZone: !Select [ 1, !GetAZs '' ]
-      MapPublicIpOnLaunch: true
+      MapPublicIpOnLaunch: false
 
   PrivateSubnet1:
     Type: AWS::EC2::Subnet

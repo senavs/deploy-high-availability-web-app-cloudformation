@@ -57,10 +57,14 @@ Resources:
           FromPort: 80
           ToPort: 80
           CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
       SecurityGroupEgress:
         - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
+          FromPort: 0
+          ToPort: 65535
           CidrIp: 0.0.0.0/0
 
   # JumpBox
@@ -82,6 +86,7 @@ Resources:
             VolumeSize: '10'
 
   # Web Application Configuration
+  # Ubuntu Server 18.04 LTS (HVM), SSD Volume Type
   WebApplicationLaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
@@ -95,12 +100,12 @@ Resources:
           cd /var/www/html
           aws s3 cp s3://udacity-demo-1/udacity.zip .
           unzip -o udacity.zip
-      ImageId: ami-0742b4e673072066f
+      ImageId: ami-013f17f36f8b1fefb
+      InstanceType: t3.small
       KeyName: !Ref ParamWebApplicationKeyName
       IamInstanceProfile: !ImportValue OutputProfileInstance
       SecurityGroups:
         - !Ref WebApplicationSecurityGroup
-      InstanceType: t3.small
       BlockDeviceMappings:
         - DeviceName: "/dev/sdk"
           Ebs:
@@ -127,9 +132,8 @@ Resources:
       VPCZoneIdentifier:
         - !ImportValue OutputPrivateSubnet1
         - !ImportValue OutputPrivateSubnet2
-      LaunchConfigurationName:
-        Ref: WebApplicationLaunchConfig
-      MinSize: '1'
+      LaunchConfigurationName: !Ref WebApplicationLaunchConfig
+      MinSize: '2'
       MaxSize: '3'
       TargetGroupARNs:
         - !Ref WebApplicationTargetGroup

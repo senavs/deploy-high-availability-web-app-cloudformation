@@ -39,7 +39,7 @@ Resources:
     Properties:
       Path: "/"
       Roles:
-      - !Ref S3ReadOnlyRole
+        - !Ref S3ReadOnlyRole
 
 Outputs:
 
