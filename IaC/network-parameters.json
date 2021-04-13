@@ -1,0 +1,22 @@
+[
+  {
+    "ParameterKey": "ParamVPCCIRD",
+    "ParameterValue": "10.0.0.0/16"
+  },
+  {
+    "ParameterKey": "ParamPublicSubnet1CIRD",
+    "ParameterValue": "10.0.1.0/24"
+  },
+  {
+    "ParameterKey": "ParamPublicSubnet2CIRD",
+    "ParameterValue": "10.0.2.0/24"
+  },
+  {
+    "ParameterKey": "ParamPrivateSubnet1CIRD",
+    "ParameterValue": "10.0.3.0/24"
+  },
+  {
+    "ParameterKey": "ParamPrivateSubnet2CIRD",
+    "ParameterValue": "10.0.4.0/24"
+  }
+]

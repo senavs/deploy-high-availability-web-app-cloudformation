@@ -1,0 +1,37 @@
+Description: >
+  Udacity Cloud DevOps Engineer Nanodegree Program - Project 1. 
+  Deploy a High Availability Web App With Cloudformation.
+
+Parameters:
+
+  ParamVPCCIRD:
+    Description: IP range (CIDR notation)
+    Type: String
+    Default: 10.0.0.0/16
+
+  ParamPublicSubnet1CIRD:
+    Description: IP range (CIDR notation)
+    Type: String
+    Default: 10.0.1.0/24
+
+  ParamPublicSubnet2CIRD:
+    Description: IP range (CIDR notation)
+    Type: String
+    Default: 10.0.2.0/24
+
+  ParamPrivateSubnet1CIRD:
+    Description: IP range (CIDR notation)
+    Type: String
+    Default: 10.0.3.0/24
+
+  ParamPrivateSubnet2CIRD:
+    Description: IP range (CIDR notation)
+    Type: String
+    Default: 10.0.4.0/24
+
+Resources:
+
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref ParamVPCCIRD
