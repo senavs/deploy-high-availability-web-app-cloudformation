@@ -121,3 +121,40 @@ Resources:
       RouteTableId: !Ref PublicRouteTable
       GatewayId: !Ref InternetGateway
       DestinationCidrBlock: 0.0.0.0/0
+
+  # Private Routes
+  PrivateRouteTable1:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+
+  PrivateRouteTable2:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+
+  AssociatePrivateRouteTable1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable1
+      SubnetId: !Ref PrivateSubnet1
+
+  AssociatePrivateRouteTable2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable2
+      SubnetId: !Ref PrivateSubnet2
+
+  PrivateInternetRoute1:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable1
+      NatGatewayId: !Ref NAT1
+      DestinationCidrBlock: 0.0.0.0/0
+
+  PrivateInternetRoute2:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable2
+      NatGatewayId: !Ref NAT2
+      DestinationCidrBlock: 0.0.0.0/0
