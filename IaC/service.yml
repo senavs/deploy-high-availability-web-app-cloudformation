@@ -52,3 +52,21 @@ Resources:
           FromPort: 80
           ToPort: 80
           CidrIp: 0.0.0.0/0
+
+  # JumpBox
+  JumpBoxInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0742b4e673072066f
+      KeyName: udacity-project-02-jumpbox-key
+      InstanceType: t3.micro
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          GroupSet:
+            - !Ref JumBoxSecurityGroup
+          SubnetId: !ImportValue OutputPublicSubnet1          
+      BlockDeviceMappings:
+        - DeviceName: "/dev/sdk"
+          Ebs:
+            VolumeSize: '10'
