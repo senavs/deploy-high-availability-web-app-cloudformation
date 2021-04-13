@@ -165,8 +165,32 @@ Resources:
 
 Outputs:
 
-    VPC:
-      Description: A reference to the created VPC
-      Value: !Ref VPC
-      Export:
-          Name: OutputVPC
+  VPC:
+    Description: A reference to the created VPC
+    Value: !Ref VPC
+    Export:
+      Name: OutputVPC
+
+  PublicSubnet1:
+    Description: A reference to the created Subnet
+    Value: !Ref PublicSubnet1
+    Export:
+      Name: OutputPublicSubnet1
+
+  PublicSubnet2:
+    Description: A reference to the created Subnet
+    Value: !Ref PublicSubnet2
+    Export:
+      Name: OutputPublicSubnet2
+
+  PrivateSubnet1:
+    Description: A reference to the created Subnet
+    Value: !Ref PrivateSubnet1
+    Export:
+      Name: OutputPrivateSubnet1
+
+  PrivateSubnet2:
+    Description: A reference to the created Subnet
+    Value: !Ref PrivateSubnet2
+    Export:
+      Name: OutputPrivateSubnet2
