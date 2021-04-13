@@ -1,0 +1,35 @@
+Description: >
+  Udacity Cloud DevOps Engineer Nanodegree Program - Project 1. 
+  Deploy a High Availability Web App With Cloudformation.
+
+Resources:
+
+  S3ReadOnlyRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: S3ReadOnly
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: "/"
+  
+  S3ReadOnlyPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: S3ReadOnlyAccess
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action: 
+              - s3:Get*
+              - s3:List*
+            Resource: 
+              - arn:aws:s3:::udacity-demo-1
+              - arn:aws:s3:::udacity-demo-1/*
+      Roles:
+        - !Ref S3ReadOnlyRole              
