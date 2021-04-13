@@ -31,7 +31,17 @@ Parameters:
 
 Resources:
 
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+
   VPC:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: !Ref ParamVPCCIRD
+
+  AttachInternetGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    DependsOn: InternetGateway
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
