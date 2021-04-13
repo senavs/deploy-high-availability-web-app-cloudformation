@@ -131,3 +131,15 @@ Resources:
         Ref: WebApplicationLaunchConfig
       MinSize: '1'
       MaxSize: '3'
+      TargetGroupARNs:
+        - !Ref WebApplicationTargetGroup
+
+  # Load Balancer
+  LoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      SecurityGroups:
+        - !Ref LoudBalancerSecurityGroup
+      Subnets:
+        - !ImportValue OutputPublicSubnet1
+        - !ImportValue OutputPublicSubnet2
