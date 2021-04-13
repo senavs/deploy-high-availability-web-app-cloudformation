@@ -158,3 +158,11 @@ Resources:
       RouteTableId: !Ref PrivateRouteTable2
       NatGatewayId: !Ref NAT2
       DestinationCidrBlock: 0.0.0.0/0
+
+Outputs:
+
+    VPC:
+      Description: A reference to the created VPC
+      Value: !Ref VPC
+      Export:
+          Name: OutputVPC
