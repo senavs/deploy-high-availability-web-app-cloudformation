@@ -40,3 +40,11 @@ Resources:
       Path: "/"
       Roles:
       - !Ref S3ReadOnlyRole
+
+Outputs:
+
+  ProfileInstance:
+    Description: A reference to the created InstanceProfile
+    Value: !Ref ProfileInstance
+    Export:
+      Name: OutputProfileInstance

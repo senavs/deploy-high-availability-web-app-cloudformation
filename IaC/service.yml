@@ -2,6 +2,12 @@ Description: >
   Udacity Cloud DevOps Engineer Nanodegree Program - Project 1. 
   Deploy a High Availability Web App With Cloudformation.
 
+Parameters:
+
+  ParamJumpBoxKeyName:
+    Description: JupBox access key name
+    Type: String
+
 Resources:
 
   # Security Groups
@@ -58,7 +64,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: ami-0742b4e673072066f
-      KeyName: udacity-project-02-jumpbox-key
+      KeyName: !Ref ParamJumpBoxKeyName
       InstanceType: t3.micro
       NetworkInterfaces:
         - AssociatePublicIpAddress: "true"

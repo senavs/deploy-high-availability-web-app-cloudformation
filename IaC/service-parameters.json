@@ -1,3 +1,6 @@
 [
-
+  {
+    "ParameterKey": "ParamJumpBoxKeyName",
+    "ParameterValue": "udacity-project-02-jumpbox-key"
+  }
 ]
