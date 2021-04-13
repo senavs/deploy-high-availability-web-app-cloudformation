@@ -51,6 +51,7 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       CidrBlock: !Ref ParamPublicSubnet1CIRD
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
       MapPublicIpOnLaunch: true
 
   PublicSubnet2:
@@ -58,6 +59,7 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       CidrBlock: !Ref ParamPublicSubnet2CIRD
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
       MapPublicIpOnLaunch: true
 
   PrivateSubnet1:
@@ -65,6 +67,7 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       CidrBlock: !Ref ParamPrivateSubnet1CIRD
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
       MapPublicIpOnLaunch: false
 
   PrivateSubnet2:
@@ -72,6 +75,7 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       CidrBlock: !Ref ParamPrivateSubnet2CIRD
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
       MapPublicIpOnLaunch: false
 
   # EIP NAT
