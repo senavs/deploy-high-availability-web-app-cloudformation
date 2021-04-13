@@ -8,6 +8,10 @@ Parameters:
     Description: JupBox access key name
     Type: String
 
+  ParamWebApplicationKeyName:
+    Description: WebApplication access key name
+    Type: String
+
 Resources:
 
   # Security Groups
@@ -76,3 +80,54 @@ Resources:
         - DeviceName: "/dev/sdk"
           Ebs:
             VolumeSize: '10'
+
+  # Web Application Configuration
+  WebApplicationLaunchConfig:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          apt-get update -y
+          apt-get install unzip awscli -y
+          apt-get install apache2 -y
+          systemctl start apache2.service
+          cd /var/www/html
+          aws s3 cp s3://udacity-demo-1/udacity.zip .
+          unzip -o udacity.zip
+      ImageId: ami-0742b4e673072066f
+      KeyName: !Ref ParamWebApplicationKeyName
+      IamInstanceProfile: !ImportValue OutputProfileInstance
+      SecurityGroups:
+        - !Ref WebApplicationSecurityGroup
+      InstanceType: t3.small
+      BlockDeviceMappings:
+        - DeviceName: "/dev/sdk"
+          Ebs:
+            VolumeSize: '10'
+
+  # Web Application Target Group
+  WebApplicationTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: 10
+      HealthCheckPath: /
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 8
+      HealthyThresholdCount: 2
+      Port: 80
+      Protocol: HTTP
+      UnhealthyThresholdCount: 5
+      VpcId: !ImportValue OutputVPC
+
+  # Web Application Auto Scaling Group
+  WebApplicationAutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      VPCZoneIdentifier:
+        - !ImportValue OutputPrivateSubnet1
+        - !ImportValue OutputPrivateSubnet2
+      LaunchConfigurationName:
+        Ref: WebApplicationLaunchConfig
+      MinSize: '1'
+      MaxSize: '3'
