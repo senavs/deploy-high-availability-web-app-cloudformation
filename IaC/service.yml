@@ -4,13 +4,15 @@ Description: >
 
 Parameters:
 
-  ParamJumpBoxKeyName:
-    Description: JupBox access key name
+  ParamInstanceTypeJumpBox:
+    Description: EC2 instance type
     Type: String
+    AllowedValues: [t2.medium, t3.small, t3.nano, t3.micro, t3.small, t3.medium, t3.large, t3.xlarge, t3.2xlarge]
 
-  ParamWebApplicationKeyName:
-    Description: WebApplication access key name
+  ParamInstanceTypeWebApplication:
+    Description: EC2 instance type
     Type: String
+    AllowedValues: [t2.medium, t3.small, t3.nano, t3.micro, t3.small, t3.medium, t3.large, t3.xlarge, t3.2xlarge]
 
 Resources:
 
@@ -72,8 +74,8 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: ami-0742b4e673072066f
-      KeyName: !Ref ParamJumpBoxKeyName
-      InstanceType: t3.micro
+      KeyName: udacity-project-02-jumpbox-key
+      InstanceType: !Ref ParamInstanceTypeJumpBox
       NetworkInterfaces:
         - AssociatePublicIpAddress: "true"
           DeviceIndex: "0"
@@ -101,8 +103,8 @@ Resources:
           aws s3 cp s3://udacity-demo-1/udacity.zip .
           unzip -o udacity.zip
       ImageId: ami-013f17f36f8b1fefb
-      InstanceType: t3.small
-      KeyName: !Ref ParamWebApplicationKeyName
+      InstanceType: !Ref ParamInstanceTypeWebApplication
+      KeyName: udacity-project-02-webapplication-key
       IamInstanceProfile: !ImportValue OutputProfileInstance
       SecurityGroups:
         - !Ref WebApplicationSecurityGroup
@@ -174,6 +176,6 @@ Outputs:
 
   LoadBalancer:
     Description: A reference to the created LoadBalancer
-    Value: !Ref LoadBalancer
+    Value: !Join [ "", [ 'http://', !GetAtt LoadBalancer.DNSName ]]
     Export:
-      Name: OutputLoadBalancer
+      Name: LoadBalancerURL

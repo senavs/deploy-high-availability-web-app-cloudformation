@@ -112,3 +112,16 @@ bash scripts/delete.sh udacity-project-02-service
 
 ### AWS prints and other images
 [Other images](https://github.com/senavs/deploy-high-availability-web-app-cloudformation/tree/master/images)
+
+### Load Balancer output with URL
+```yml
+Outputs:
+
+  LoadBalancer:
+    Description: A reference to the created LoadBalancer
+    Value: !Join [ "", [ 'http://', !GetAtt LoadBalancer.DNSName ]]
+    Export:
+      Name: LoadBalancerURL
+```
+
+![output with url](https://github.com/senavs/deploy-high-availability-web-app-cloudformation/blob/master/images/03%20-%20service/05%20-%20outputs.png)

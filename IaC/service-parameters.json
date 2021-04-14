@@ -1,10 +1,10 @@
 [
   {
-    "ParameterKey": "ParamJumpBoxKeyName",
-    "ParameterValue": "udacity-project-02-jumpbox-key"
+    "ParameterKey": "ParamInstanceTypeJumpBox",
+    "ParameterValue": "t3.micro"
   },
   {
-    "ParameterKey": "ParamWebApplicationKeyName",
-    "ParameterValue": "udacity-project-02-webapplication-key"
+    "ParameterKey": "ParamInstanceTypeWebApplication",
+    "ParameterValue": "t3.small"
   }
 ]
